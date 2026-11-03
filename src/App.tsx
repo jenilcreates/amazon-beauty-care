@@ -28,7 +28,12 @@ export default function App() {
   const handleShopNow = () => {
     const target = document.getElementById('listicle-content');
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+      const navBarOffset = 46;
+      const targetPosition = target.getBoundingClientRect().top + window.scrollY - navBarOffset;
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -49,7 +54,7 @@ export default function App() {
         {/* 3. The 5 Listicle Cards Container */}
         <section 
           id="listicle-content" 
-          className="max-w-[900px] mx-auto px-4 sm:px-6 pt-10 sm:pt-16 pb-6"
+          className="max-w-[900px] mx-auto px-4 sm:px-6 pt-10 sm:pt-16 pb-6 scroll-mt-14"
         >
           {LISTICLE_ITEMS.map((item, index) => (
             <ListicleCard

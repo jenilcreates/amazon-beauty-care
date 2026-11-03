@@ -17,17 +17,21 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNowClick }) => {
           fetchPriority="high"
         />
 
-        {/* Desktop Interactive "SHOP NOW" Button Overlay */}
-        <button
-          type="button"
-          onClick={onShopNowClick}
+        {/* Desktop Interactive "SHOP NOW" Button Overlay - exactly positioned over button */}
+        <a
+          href="#listicle-content"
+          onClick={(e) => {
+            e.preventDefault();
+            onShopNowClick();
+          }}
           aria-label="Shop now - scroll to curated skincare essentials"
-          className="absolute z-10 cursor-pointer transition-all duration-200 hover:bg-white/15 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+          title="Shop now"
+          className="absolute z-10 cursor-pointer rounded-xs transition-all duration-200 hover:ring-2 hover:ring-white/60 hover:bg-white/15 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
           style={{
-            left: '15.1%',
-            top: '74.2%',
-            width: '14.4%',
-            height: '9.0%',
+            left: '15.2%',
+            top: '78.9%',
+            width: '14.3%',
+            height: '8.6%',
           }}
         />
       </div>
@@ -42,17 +46,21 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNowClick }) => {
           fetchPriority="high"
         />
 
-        {/* Mobile Interactive "SHOP NOW" Button Overlay mapped to mobile graphic */}
-        <button
-          type="button"
-          onClick={onShopNowClick}
+        {/* Mobile Interactive "SHOP NOW" Button Overlay - exactly positioned over button */}
+        <a
+          href="#listicle-content"
+          onClick={(e) => {
+            e.preventDefault();
+            onShopNowClick();
+          }}
           aria-label="Shop now - scroll to curated skincare essentials"
+          title="Shop now"
           className="absolute z-10 cursor-pointer transition-all duration-200 active:bg-white/20 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
           style={{
-            left: '33.5%',
-            top: '36.8%',
-            width: '33.0%',
-            height: '5.8%',
+            left: '34.2%',
+            top: '37.1%',
+            width: '31.6%',
+            height: '5.2%',
           }}
         />
       </div>
