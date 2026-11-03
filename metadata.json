@@ -1,0 +1,8 @@
+{
+  "name": "Skincare Essentials - Luxury Beauty Editorial Listicle",
+  "description": "Curated luxury skincare listicle featuring award-winning essentials, expert reviews, and exclusive beauty offers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
