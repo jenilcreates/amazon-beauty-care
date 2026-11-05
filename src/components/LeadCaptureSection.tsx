@@ -63,15 +63,12 @@ export const LeadCaptureSection: React.FC = () => {
               <Mail className="w-5 h-5" />
             </div>
 
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-black tracking-tight">
-              Get Rare Mini Beauty Drops
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-black tracking-tight uppercase">
+              SUBSCRIBE NOW
             </h3>
-            <p className="mt-2 sm:mt-3 text-sm sm:text-base text-neutral-600 max-w-lg mx-auto leading-relaxed">
-              Never miss a cult-favorite mini restock, French pharmacy gem, or limited-time luxury skincare deal.
-            </p>
 
             {/* Email-Only Lead Capture Form */}
-            <form onSubmit={handleSubmit} className="mt-6 sm:mt-8 max-w-md mx-auto" noValidate>
+            <form onSubmit={handleSubmit} className="mt-5 sm:mt-6 max-w-md mx-auto" noValidate>
               <div className="flex flex-col sm:flex-row gap-2.5">
                 <input
                   type="email"
@@ -81,13 +78,13 @@ export const LeadCaptureSection: React.FC = () => {
                     if (error) setError('');
                   }}
                   placeholder="Enter your email address"
-                  className="flex-1 bg-white border border-neutral-300 px-4 py-3.5 text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black transition-colors"
+                  className="flex-1 bg-white border border-neutral-300 px-4 py-3 text-sm text-black placeholder:text-neutral-400 focus:outline-none focus:border-black transition-colors"
                   aria-label="Email address"
                   required
                 />
                 <button
                   type="submit"
-                  className="bg-black text-white hover:bg-neutral-800 active:scale-[0.99] transition-all px-7 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                  className="bg-black text-white hover:bg-neutral-800 active:scale-[0.99] transition-all px-7 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                 >
                   <span>Subscribe</span>
                   <ArrowRight className="w-4 h-4" />
@@ -99,10 +96,6 @@ export const LeadCaptureSection: React.FC = () => {
                   {error}
                 </p>
               )}
-
-              <p className="mt-3 text-[11px] text-neutral-400">
-                Instant delivery. Zero spam. Unsubscribe anytime in one click.
-              </p>
             </form>
           </div>
         )}

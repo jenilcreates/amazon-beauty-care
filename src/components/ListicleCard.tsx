@@ -75,7 +75,7 @@ export const ListicleCard: React.FC<ListicleCardProps> = ({
               rel="noopener noreferrer"
               className="w-full sm:w-[260px] block bg-black text-white hover:bg-neutral-800 active:scale-[0.99] transition-all py-2.5 sm:py-3 px-6 text-center text-xs sm:text-sm font-semibold tracking-wide cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 no-underline"
             >
-              view on amazon
+              {item.ctaText || 'View on Amazon'}
             </a>
           </div>
         </div>

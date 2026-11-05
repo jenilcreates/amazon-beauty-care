@@ -85,9 +85,9 @@ export const ProductModal: React.FC<ProductModalProps> = ({ item, onClose }) => 
             href={item.amazonUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 bg-black text-white hover:bg-neutral-800 text-center py-3.5 px-6 text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer no-underline"
+            className="flex-1 bg-black text-white hover:bg-neutral-800 text-center py-3.5 px-6 text-sm font-bold tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer no-underline"
           >
-            <span>view on amazon</span>
+            <span>View on Amazon</span>
             <ExternalLink className="w-4 h-4" />
           </a>
           <button
