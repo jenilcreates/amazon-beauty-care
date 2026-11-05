@@ -1,20 +1,15 @@
 import React, { useState } from 'react';
-import { AnnouncementBar } from './components/AnnouncementBar';
 import { HeroSection } from './components/HeroSection';
 import { ListicleCard } from './components/ListicleCard';
-import { CalloutBanner } from './components/CalloutBanner';
-import { SpotlightSection } from './components/SpotlightSection';
-import { FaqSection } from './components/FaqSection';
+import { LeadCaptureSection } from './components/LeadCaptureSection';
 import { FooterSection } from './components/FooterSection';
 import { ProductModal } from './components/ProductModal';
-import { DiscountModal } from './components/DiscountModal';
 import { LISTICLE_ITEMS } from './data/skincareData';
 import { ListicleItem } from './types';
 import { ArrowUp } from 'lucide-react';
 
 export default function App() {
   const [selectedProduct, setSelectedProduct] = useState<ListicleItem | null>(null);
-  const [isDiscountModalOpen, setIsDiscountModalOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   React.useEffect(() => {
@@ -25,15 +20,10 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleShopNow = () => {
+  const handleScrollToProducts = () => {
     const target = document.getElementById('listicle-content');
     if (target) {
-      const navBarOffset = 46;
-      const targetPosition = target.getBoundingClientRect().top + window.scrollY - navBarOffset;
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth'
-      });
+      target.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -42,19 +32,16 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-black font-sans-modern flex flex-col selection:bg-black selection:text-white">
-      {/* 1. Top Announcement Bar */}
-      <AnnouncementBar />
-
-      {/* 2. Hero Section */}
-      <HeroSection onShopNowClick={handleShopNow} />
+    <div className="min-h-screen bg-white text-black font-poppins flex flex-col selection:bg-black selection:text-white">
+      {/* 1. Hero Section matching Figma Desktop - 1 */}
+      <HeroSection onShopNowClick={handleScrollToProducts} />
 
       {/* Main Content Area */}
       <main className="flex-1 w-full">
-        {/* 3. The 5 Listicle Cards Container */}
+        {/* 2. The 7 Listicle Review Cards */}
         <section 
           id="listicle-content" 
-          className="max-w-[900px] mx-auto px-4 sm:px-6 pt-10 sm:pt-16 pb-6 scroll-mt-14"
+          className="max-w-[980px] mx-auto px-4 sm:px-6 pt-4 sm:pt-6 pb-2 scroll-mt-6"
         >
           {LISTICLE_ITEMS.map((item, index) => (
             <ListicleCard
@@ -66,30 +53,17 @@ export default function App() {
           ))}
         </section>
 
-        {/* 4. "Are you ready to transform your skin?" Banner */}
-        <CalloutBanner />
-
-        {/* 5. Spotlight Section: Augustinus Bader Rich Cream */}
-        <SpotlightSection
-          onClaimDiscount={() => setIsDiscountModalOpen(true)}
-        />
-
-        {/* 6. FAQs Section */}
-        <FaqSection />
+        {/* 3. Lead Capture Form (Email Only) */}
+        <LeadCaptureSection />
       </main>
 
-      {/* 7. Footer with Luxury Watermark */}
+      {/* 3. Footer with Luxury Watermark */}
       <FooterSection />
 
-      {/* Interactive Modals */}
+      {/* Interactive Amazon-style Enlarged Image Lightbox */}
       <ProductModal
         item={selectedProduct}
         onClose={() => setSelectedProduct(null)}
-      />
-
-      <DiscountModal
-        isOpen={isDiscountModalOpen}
-        onClose={() => setIsDiscountModalOpen(false)}
       />
 
       {/* Quick Scroll To Top Button */}

@@ -3,108 +3,94 @@ import { ListicleItem, FaqItem } from '../types';
 export const LISTICLE_ITEMS: ListicleItem[] = [
   {
     id: 'item-1',
-    categoryHeader: 'A Sneaky Way To Splurge',
-    title: "The Cream Those In The Know Won't Shut Up About (For Good Reason)",
-    description: "A buttery moisturizer with near-mythical status, it's rich but not greasy, hydrating but not heavy.",
-    price: '$99',
-    ctaText: '$99 from amazon',
-    imageSrc: '/assets/crops/card1_augustinus.png',
-    imageAlt: 'Augustinus Bader The Cream moisturizer with Vogue editor endorsement quote',
+    categoryHeader: 'A Sneaky Way To Splurge - (Best Overall)',
+    title: 'Augustinus Bader The Rich Cream – 15 ml',
+    description: 'a rich, fragrance-free luxury moisturizer that delivers deep hydration and barrier support for dry and mature skin at a price that demands results.',
+    buyItIf: "Your Skin Is Dry And Feels Tight, You're Over 40, Your Face Flakes Or Feels Rough After Using Retinol, You Don't Mind Spending More For Something That Actually Works.",
+    ctaText: 'view on amazon',
+    imageSrc: '/assets/wirecutter/product_1_augustinus.png',
+    imageAlt: 'Augustinus Bader The Rich Cream – 15 ml',
     amazonUrl: 'https://link.amazon/B04to6BCZ',
     brand: 'Augustinus Bader',
-    size: '15 ml / 0.5 fl. oz.',
-    rating: 4.8,
-    reviewsCount: 3420,
-    keyBenefits: [
-      'Patented TFC8® technology supports cellular renewal',
-      'Intensely hydrates without clogging pores',
-      'Leaves skin silky, luminous, and plump'
-    ],
-    couponCode: 'LUXEGLOW10'
+    size: '15 ml / 0.5 fl. oz.'
   },
   {
     id: 'item-2',
     categoryHeader: 'A Vitamin C Serum For Skin-Care Lovers',
-    title: 'Nourishing Enough To Double As A Light Moisturizer',
-    description: 'Zesty orange meets silky serum in this hydrating vitamin C pick.',
-    price: '$42',
-    ctaText: '$42 from amazon',
-    imageSrc: '/assets/crops/card2_sunday_riley.png',
-    imageAlt: 'Sunday Riley C.E.O. 15% Vitamin C Brightening Serum benefits and collagen support',
+    title: 'Sunday Riley C.E.O. 15% Vitamin C Brightening Serum – 0.5 Fl Oz',
+    description: 'a dermatologist-recommended, stabilized vitamin c serum that brightens, evens tone, and delivers a noticeable glow without stickiness.',
+    buyItIf: 'Your skin looks dull or tired, you have dark spots from the sun, other vitamin c serums burn or sting you, you want a glow without the pain.',
+    ctaText: 'view on amazon',
+    imageSrc: '/assets/wirecutter/product_2_sunday_riley.png',
+    imageAlt: 'Sunday Riley C.E.O. 15% Vitamin C Brightening Serum – 0.5 Fl Oz',
     amazonUrl: 'https://link.amazon/B03jVJevl',
     brand: 'Sunday Riley',
-    size: '30 ml / 1.0 fl. oz.',
-    rating: 4.7,
-    reviewsCount: 2890,
-    keyBenefits: [
-      '15% THD Ascorbate—an ultra-stable, lipid-soluble Vitamin C',
-      'Rapidly boosts radiance and diminishes dark spots',
-      'Provides rich antioxidant defense against environmental stress'
-    ],
-    couponCode: 'VITC42'
+    size: '0.5 Fl Oz'
   },
   {
     id: 'item-3',
     categoryHeader: 'Un Petit Sparkle For The Francophile',
-    title: 'Roll-On Nourishment And Shine, From Flyaways To Toes',
-    description: 'Orange blossom and vanilla are what make this dry oil smell like summer in Provence. Dab it on hair, skin, or cuticles.',
-    price: '$35',
-    ctaText: '$35 from amazon',
-    imageSrc: '/assets/crops/card3_nuxe.png',
-    imageAlt: 'Nuxe Huile Prodigieuse Roll-On multi-purpose dry oil for face, body, and hair',
+    title: 'Nuxe Huile Prodigieuse Roll-On',
+    description: 'the iconic french dry oil that moisturizes, softens, and adds a luxurious glow to your face, body, and hair without ever feeling greasy.',
+    buyItIf: 'You want one bottle that works on your face, body, and hair, your arms, knees, or chest look crepey, you like nice-smelling things.',
+    ctaText: 'view on amazon',
+    imageSrc: '/assets/wirecutter/product_3_nuxe.png',
+    imageAlt: 'Nuxe Huile Prodigieuse Roll-On',
     amazonUrl: 'https://link.amazon/B06xOKIFp',
     brand: 'Nuxe Paris',
-    size: '50 ml / 1.6 fl. oz.',
-    rating: 4.9,
-    reviewsCount: 5120,
-    keyBenefits: [
-      'Blend of 7 botanical precious oils (Tsubaki, Argan, Macadamia)',
-      'Dry oil texture that absorbs instantly with non-greasy satin sheen',
-      'Signature French fragrance with orange blossom, magnolia, and vanilla'
-    ],
-    couponCode: 'FRENCHPARFUM'
+    size: 'Roll-On'
   },
   {
     id: 'item-4',
     categoryHeader: 'A Multitasking Mist',
-    title: 'A Fine Mist From Our Guide To The Best French Pharmacy Products',
-    description: 'Rosemary, mint, and grape extract make this cooling mist a great midafternoon or flight refresh.',
-    price: '$20',
-    ctaText: '$20 from amazon',
-    imageSrc: '/assets/crops/card4_caudalie.png',
-    imageAlt: 'Caudalie Beauty Elixir face mist travel and full size bottles',
+    title: 'Caudalie Beauty Elixir Face Mist (30 ml)',
+    description: 'the iconic french spa-in-a-bottle mist that tightens pores, sets makeup, and gives an instant dewy glow in a travel-friendly size.',
+    buyItIf: 'You wear makeup and want it to last longer, you want a quick refresh during the day, you like keeping something small in your purse, your pores look big.',
+    ctaText: 'view on amazon',
+    imageSrc: '/assets/wirecutter/product_4_caudalie.png',
+    imageAlt: 'Caudalie Beauty Elixir Face Mist (30 ml)',
     amazonUrl: 'https://link.amazon/B09xVeFWo',
     brand: 'Caudalie',
-    size: '30 ml Travel Size / 100 ml Full Size',
-    rating: 4.8,
-    reviewsCount: 4670,
-    keyBenefits: [
-      'Tightens pores, smoothes fine lines, and sets makeup flawlessly',
-      '100% natural formula with rosemary, mint, and soothing grape water',
-      'Iconic backstage makeup artist essential for instant dewy glow'
-    ],
-    couponCode: 'MIST20'
+    size: '30 ml'
   },
   {
     id: 'item-5',
     categoryHeader: 'A French Pharmacy Staple',
-    title: 'Also Used As A Cleanser, Aftershave, And Sunburn Treatment',
-    description: 'Aloe vera, shea butter, and beeswax make this lightweight French moisturizer a treasured multitasker.',
-    price: '$19',
-    ctaText: '$19 from amazon',
-    imageSrc: '/assets/crops/card5_embryolisse.png',
-    imageAlt: 'Embryolisse Lait-Crème Concentré award-winning moisturizer and makeup primer',
+    title: 'Embryolisse Lait-Crème Concentré, Travel Size',
+    description: 'aloe vera, shea butter, and beeswax make this lightweight french moisturizer a treasured multitasker.',
+    buyItIf: 'Your skin is dry and sensitive, your face stings when you put most creams on, you wear makeup and want it to stop clinging to dry patches, your skin changed after menopause.',
+    ctaText: 'view on amazon',
+    imageSrc: '/assets/wirecutter/product_5_embryolisse.png',
+    imageAlt: 'Embryolisse Lait-Crème Concentré, Travel Size',
     amazonUrl: 'https://link.amazon/B0i11EbSd',
     brand: 'Embryolisse',
-    size: '75 ml / 2.54 fl. oz.',
-    rating: 4.8,
-    reviewsCount: 9840,
-    keyBenefits: [
-      'The cult favorite 6-in-1 moisturizer, primer, mask, and makeup remover',
-      'Soothes and softens the skin barrier with nourishing shea butter and aloe',
-      'Acclaimed by top runway makeup artists globally since 1950'
-    ],
-    couponCode: 'PARISCHIC'
+    size: 'Travel Size'
+  },
+  {
+    id: 'item-6',
+    categoryHeader: 'An Exfoliating Toner For Those Who Love A Tingle',
+    title: "Paula's Choice Skin Perfecting 2% BHA Liquid Salicylic Acid Exfoliant, Travel Size, 1 Fluid Ounce",
+    description: 'this classic uses 2% salicylic acid to sweep away dullness and reveal smooth, glowy skin.',
+    buyItIf: 'You get blackheads, especially on your nose, your skin feels bumpy or rough, you break out a lot, you have dark spots left over from old pimples.',
+    ctaText: 'view on amazon',
+    imageSrc: '/assets/wirecutter/product_6_paulas_choice.png',
+    imageAlt: "Paula's Choice Skin Perfecting 2% BHA Liquid Salicylic Acid Exfoliant",
+    amazonUrl: 'https://link.amazon/B0i9kXxVk',
+    brand: "Paula's Choice",
+    size: '1 Fluid Ounce'
+  },
+  {
+    id: 'item-7',
+    categoryHeader: 'A Gentle Makeup Remover For Anyone',
+    title: 'The Micellar Water That Launched A Thousand (Incomparable) Dupes',
+    description: 'this french icon melts foundation and waterproof mascara without stinging.',
+    buyItIf: 'Your skin is sensitive, your eyes water or sting when you take off makeup, you have rosacea or your skin gets red easily, you travel a lot.',
+    ctaText: 'view on amazon',
+    imageSrc: '/assets/wirecutter/product_7_bioderma.png',
+    imageAlt: 'The Micellar Water That Launched A Thousand (Incomparable) Dupes (Bioderma Sensibio H2O)',
+    amazonUrl: 'https://link.amazon/B00mmCR7Q',
+    brand: 'Bioderma Sensibio',
+    size: 'Travel Size'
   }
 ];
 

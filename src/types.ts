@@ -3,16 +3,17 @@ export interface ListicleItem {
   categoryHeader: string;
   title: string;
   description: string;
-  price: string;
+  buyItIf: string;
+  price?: string;
   ctaText: string;
   imageSrc: string;
   imageAlt: string;
   amazonUrl: string;
-  brand: string;
-  size: string;
-  rating: number;
-  reviewsCount: number;
-  keyBenefits: string[];
+  brand?: string;
+  size?: string;
+  rating?: number;
+  reviewsCount?: number;
+  keyBenefits?: string[];
   couponCode?: string;
 }
 
