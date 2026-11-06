@@ -4,20 +4,32 @@ import { ListicleCard } from './components/ListicleCard';
 import { LeadCaptureSection } from './components/LeadCaptureSection';
 import { FooterSection } from './components/FooterSection';
 import { ProductModal } from './components/ProductModal';
+import { AdminLeadsModal } from './components/AdminLeadsModal';
 import { LISTICLE_ITEMS } from './data/skincareData';
 import { ListicleItem } from './types';
 import { ArrowUp } from 'lucide-react';
 
 export default function App() {
   const [selectedProduct, setSelectedProduct] = useState<ListicleItem | null>(null);
+  const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   React.useEffect(() => {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 400);
     };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Secret owner shortcut: Shift + Alt + L to open leads manager
+      if (e.shiftKey && e.altKey && e.key.toLowerCase() === 'l') {
+        setIsAdminOpen((prev) => !prev);
+      }
+    };
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, []);
 
   const handleScrollToProducts = () => {
@@ -54,16 +66,22 @@ export default function App() {
         </section>
 
         {/* 3. Lead Capture Form (Email Only) */}
-        <LeadCaptureSection />
+        <LeadCaptureSection onOpenAdmin={() => setIsAdminOpen(true)} />
       </main>
 
-      {/* 3. Footer with Luxury Watermark */}
-      <FooterSection />
+      {/* 4. Footer with Luxury Watermark */}
+      <FooterSection onOpenAdmin={() => setIsAdminOpen(true)} />
 
       {/* Interactive Amazon-style Enlarged Image Lightbox */}
       <ProductModal
         item={selectedProduct}
         onClose={() => setSelectedProduct(null)}
+      />
+
+      {/* Owner Google Sheets & Leads Management Modal */}
+      <AdminLeadsModal
+        isOpen={isAdminOpen}
+        onClose={() => setIsAdminOpen(false)}
       />
 
       {/* Quick Scroll To Top Button */}

@@ -21,11 +21,27 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNowClick }) => {
         >
           <img
             src="/assets/wirecutter/hero_banner.png"
-            alt="7 Mini Versions of Beauty Products to Try Right Now - Handheld luxury skincare miniatures"
+            alt="7 Best Skincare Moisturizer for Oily Skin (Non-Comedogenic) - Handheld luxury miniatures"
             className="w-full h-auto object-cover select-none transition-transform duration-500 group-hover:scale-[1.01]"
             loading="eager"
             fetchPriority="high"
           />
+        </div>
+
+        {/* Editorial Story Introduction */}
+        <div className="mt-6 sm:mt-8 space-y-3.5 sm:space-y-4 text-neutral-800 text-[15px] sm:text-base leading-relaxed font-normal">
+          <p>
+            Pocket-size lotions! A moisturizer small enough to hang on your keys! There is something undeniably fun about tiny things.
+          </p>
+          <p>
+            The trick is finding miniatures that are as good as their full-size counterparts, items that your loved ones will be excited to use (and won’t feel like a sack of free samples).
+          </p>
+          <p>
+            That’s where our testing and expertise comes in. internet’s vast number of beauty and skin-care products to find the best of the best. And everything we recommend here is a pick — just available in a delightfully miniature size.
+          </p>
+          <p>
+            So whether you’re looking to try a new product for the first time, grabbing something travel-sized before a trip, or rounding out a bigger gift for a loved one, these teensy beauty picks are sure to surprise and delight.
+          </p>
         </div>
       </div>
     </header>

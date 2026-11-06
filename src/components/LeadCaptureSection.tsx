@@ -1,74 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, CheckCircle, ArrowRight, ExternalLink, Sheet, RefreshCw } from 'lucide-react';
-import { googleSignIn, getAccessToken, initAuth, logout } from '../services/googleAuth';
-import { appendEmailToSheet, getStoredSpreadsheetId } from '../services/googleSheets';
-import type { User } from 'firebase/auth';
+import { Mail, CheckCircle, ArrowRight, Lock } from 'lucide-react';
+import { getAccessToken, initAuth } from '../services/googleAuth';
+import { appendEmailToSheet } from '../services/googleSheets';
 
-export const LeadCaptureSection: React.FC = () => {
+interface LeadCaptureSectionProps {
+  onOpenAdmin?: () => void;
+}
+
+export const LeadCaptureSection: React.FC<LeadCaptureSectionProps> = ({ onOpenAdmin }) => {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  // Google Sheets Auth State
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [isConnectingGoogle, setIsConnectingGoogle] = useState(false);
-  const [sheetUrl, setSheetUrl] = useState<string | null>(null);
-  const [syncStatus, setSyncStatus] = useState<string | null>(null);
 
   useEffect(() => {
-    // Check if a spreadsheet ID was previously created
-    const storedId = getStoredSpreadsheetId();
-    if (storedId) {
-      setSheetUrl(`https://docs.google.com/spreadsheets/d/${storedId}`);
-    }
-
     const unsubscribe = initAuth(
-      (user, token) => {
-        setCurrentUser(user);
+      (_user, token) => {
         setAccessToken(token);
       },
       () => {
-        setCurrentUser(null);
         setAccessToken(null);
       }
     );
     return () => unsubscribe();
   }, []);
-
-  const handleConnectGoogle = async () => {
-    setIsConnectingGoogle(true);
-    setError('');
-    try {
-      const res = await googleSignIn();
-      if (res) {
-        setCurrentUser(res.user);
-        setAccessToken(res.accessToken);
-
-        // Sync any locally stored leads that haven't been sent yet
-        const existingLeads = JSON.parse(localStorage.getItem('captured_leads') || '[]');
-        if (existingLeads.length > 0) {
-          setSyncStatus(`Syncing ${existingLeads.length} stored lead(s) to Google Sheets...`);
-          let syncedCount = 0;
-          for (const item of existingLeads) {
-            const r = await appendEmailToSheet(res.accessToken, item.email);
-            if (r.success) {
-              syncedCount++;
-              setSheetUrl(r.spreadsheetUrl);
-            }
-          }
-          setSyncStatus(`Successfully synced ${syncedCount} lead(s) to Google Sheets!`);
-          setTimeout(() => setSyncStatus(null), 4000);
-        }
-      }
-    } catch (err: any) {
-      console.error('Google connect error:', err);
-      setError('Could not connect to Google Sheets. Please ensure popup is allowed.');
-    } finally {
-      setIsConnectingGoogle(false);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -86,26 +42,47 @@ export const LeadCaptureSection: React.FC = () => {
     setIsSubmitting(true);
     setError('');
 
-    // 1. Save locally so lead is never lost
+    let synced = false;
+
+    // 1. Silent background sync to Google Sheets if authenticated
+    try {
+      const token = accessToken || (await getAccessToken());
+      if (token) {
+        const sheetRes = await appendEmailToSheet(token, trimmed);
+        if (sheetRes.success) {
+          synced = true;
+        }
+      }
+    } catch {
+      // Silent catch - don't disrupt user's subscription experience
+    }
+
+    // 2. Also check if custom webhook URL is configured for Google Sheets
+    try {
+      const webhookUrl = localStorage.getItem('google_sheet_webhook_url');
+      if (webhookUrl) {
+        await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: trimmed, date: new Date().toISOString() }),
+        });
+        synced = true;
+      }
+    } catch {
+      // Silent catch
+    }
+
+    // 3. Save to persistent leads storage
     try {
       const existing = JSON.parse(localStorage.getItem('captured_leads') || '[]');
-      existing.push({ email: trimmed, date: new Date().toISOString() });
+      existing.push({
+        email: trimmed,
+        date: new Date().toISOString(),
+        syncedToGoogleSheet: synced,
+      });
       localStorage.setItem('captured_leads', JSON.stringify(existing));
     } catch (storageErr) {
       console.error(storageErr);
-    }
-
-    // 2. If Google access token is present, append to Google Sheet directly
-    const token = accessToken || (await getAccessToken());
-    if (token) {
-      try {
-        const sheetRes = await appendEmailToSheet(token, trimmed);
-        if (sheetRes.success) {
-          setSheetUrl(sheetRes.spreadsheetUrl);
-        }
-      } catch (sheetErr) {
-        console.error('Error writing to Google Sheet:', sheetErr);
-      }
     }
 
     setIsSubmitting(false);
@@ -117,29 +94,16 @@ export const LeadCaptureSection: React.FC = () => {
       {/* 3px Top Divider */}
       <div className="w-full h-[3px] bg-black mb-6" />
 
-      <div className="bg-neutral-50 border border-neutral-200 p-6 sm:p-8 text-center max-w-[680px] mx-auto rounded-xs">
+      <div className="relative bg-neutral-50 border border-neutral-200 p-6 sm:p-8 text-center max-w-[680px] mx-auto rounded-xs">
         {submitted ? (
           <div className="flex flex-col items-center justify-center py-4 animate-in fade-in duration-300">
-            <CheckCircle className="w-12 h-12 text-emerald-600 mb-3" />
+            <CheckCircle className="w-11 h-11 text-emerald-600 mb-2.5" />
             <h3 className="text-xl sm:text-2xl font-bold text-black tracking-tight">
               You&apos;re subscribed!
             </h3>
-            <p className="mt-2 text-sm text-neutral-600">
-              <span className="font-semibold text-black">{email}</span> has been successfully collected.
+            <p className="mt-1 text-sm text-neutral-600">
+              Thank you for subscribing to our beauty insider list.
             </p>
-
-            {sheetUrl && (
-              <a
-                href={sheetUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded border border-emerald-200 hover:bg-emerald-100 transition-colors"
-              >
-                <Sheet className="w-4 h-4" />
-                <span>Saved to Google Sheet &quot;Beauty Minis Subscriber Leads&quot;</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            )}
 
             <button
               type="button"
@@ -196,62 +160,17 @@ export const LeadCaptureSection: React.FC = () => {
           </div>
         )}
 
-        {/* Google Sheets Sync Integration Bar for Owner / Admin */}
-        <div className="mt-6 pt-4 border-t border-neutral-200 flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2 text-neutral-600">
-            <Sheet className="w-4 h-4 text-emerald-600" />
-            {currentUser ? (
-              <span className="text-neutral-700">
-                Connected as <strong className="text-black">{currentUser.email}</strong>
-              </span>
-            ) : (
-              <span className="text-neutral-500">
-                Google Sheets integration ready
-              </span>
-            )}
-          </div>
-
-          <div className="flex items-center gap-2">
-            {currentUser ? (
-              <>
-                {sheetUrl && (
-                  <a
-                    href={sheetUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 font-semibold text-emerald-700 hover:text-emerald-800 underline mr-2"
-                  >
-                    <span>Open Leads Sheet</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                )}
-                <button
-                  type="button"
-                  onClick={() => logout()}
-                  className="text-neutral-400 hover:text-neutral-700 underline text-[11px] cursor-pointer"
-                >
-                  Disconnect
-                </button>
-              </>
-            ) : (
-              <button
-                type="button"
-                onClick={handleConnectGoogle}
-                disabled={isConnectingGoogle}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-neutral-300 hover:border-black text-black font-medium rounded-xs shadow-2xs hover:bg-neutral-50 transition-colors cursor-pointer text-xs"
-              >
-                <Sheet className="w-3.5 h-3.5 text-emerald-600" />
-                <span>{isConnectingGoogle ? 'Connecting...' : 'Connect Google Sheet'}</span>
-              </button>
-            )}
-          </div>
-        </div>
-
-        {syncStatus && (
-          <p className="mt-2 text-xs text-emerald-700 font-medium animate-in fade-in flex items-center justify-center gap-1">
-            <RefreshCw className="w-3 h-3 animate-spin" />
-            <span>{syncStatus}</span>
-          </p>
+        {/* Discreet Owner / Admin Sheet Controls Trigger */}
+        {onOpenAdmin && (
+          <button
+            type="button"
+            onClick={onOpenAdmin}
+            title="Owner Settings & Google Sheet Leads"
+            className="absolute bottom-2 right-2 p-1.5 text-neutral-300 hover:text-neutral-600 transition-colors opacity-40 hover:opacity-100 cursor-pointer"
+            aria-label="Open sheet settings"
+          >
+            <Lock className="w-3.5 h-3.5" />
+          </button>
         )}
       </div>
     </section>

@@ -1,6 +1,10 @@
 import React from 'react';
 
-export const FooterSection: React.FC = () => {
+interface FooterSectionProps {
+  onOpenAdmin?: () => void;
+}
+
+export const FooterSection: React.FC<FooterSectionProps> = ({ onOpenAdmin }) => {
   return (
     <footer className="relative w-full bg-white overflow-hidden pt-6 sm:pt-8 pb-6 sm:pb-8 border-t border-neutral-200">
       {/* Subtle giant watermark typography */}
@@ -20,7 +24,13 @@ export const FooterSection: React.FC = () => {
         </h3>
 
         {/* Subtle subtext matching Figma "@HIDDENCLICKEEMS, 2026" */}
-        <p className="mt-2 text-[10px] sm:text-xs text-neutral-400 font-mono tracking-widest uppercase">
+        <p 
+          onClick={onOpenAdmin}
+          className={`mt-2 text-[10px] sm:text-xs text-neutral-400 font-mono tracking-widest uppercase ${
+            onOpenAdmin ? 'hover:text-neutral-700 cursor-pointer transition-colors' : ''
+          }`}
+          title={onOpenAdmin ? 'Open Lead Collection & Google Sheets' : undefined}
+        >
           @HIDDENCLICKEEMS, 2026
         </p>
       </div>
