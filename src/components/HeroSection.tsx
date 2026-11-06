@@ -10,7 +10,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNowClick }) => {
       <div className="max-w-[980px] mx-auto px-4 sm:px-6">
         {/* Main Headline with letter spacing */}
         <h1 className="text-3xl sm:text-4xl md:text-[44px] lg:text-[48px] font-extrabold text-black tracking-[0.03em] leading-[1.18] text-left">
-          7 Mini Versions of Beauty Products to Try Right Now
+          7 Best Skincare Moisturizer for Oily Skin (Non-Comedogenic)
         </h1>
 
         {/* Hero Banner Image */}
